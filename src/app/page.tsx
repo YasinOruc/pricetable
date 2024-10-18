@@ -134,7 +134,7 @@ export default function PriceTable() {
 
   return (
     <TooltipProvider>
-      <div className="container mx-auto px-4 py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4 py-16">
         <h2 className="text-4xl font-bold text-center mb-4 dark:text-white">
           Choose Your Plan
         </h2>
