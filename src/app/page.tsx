@@ -23,12 +23,15 @@ import {
 type FeatureValue = string | boolean;
 type TierName = "basic" | "pro" | "enterprise";
 
-type Feature = {
+interface Feature {
   name: string;
   tooltip?: string;
-} & Record<TierName, FeatureValue>;
+  basic: FeatureValue;
+  pro: FeatureValue;
+  enterprise: FeatureValue;
+}
 
-type Tier = {
+interface Tier {
   name: string;
   nameKey: TierName;
   monthlyPrice?: number;
@@ -38,7 +41,7 @@ type Tier = {
   color: string;
   buttonColor: string;
   popular?: boolean;
-};
+}
 
 const features: Feature[] = [
   {
@@ -126,7 +129,7 @@ const tiers: Tier[] = [
 ];
 
 export default function PriceTable() {
-  const [isAnnual, setIsAnnual] = useState(false);
+  const [isAnnual, setIsAnnual] = useState<boolean>(false);
 
   return (
     <TooltipProvider>
@@ -142,7 +145,7 @@ export default function PriceTable() {
           <span className="mr-3 text-sm font-medium dark:text-white">Monthly</span>
           <Switch
             checked={isAnnual}
-            onCheckedChange={setIsAnnual}
+            onCheckedChange={(checked) => setIsAnnual(checked)}
             aria-label="Toggle annual billing"
           />
           <span className="ml-3 text-sm font-medium dark:text-white">
@@ -154,11 +157,11 @@ export default function PriceTable() {
           {tiers.map((tier) => (
             <Card
               key={tier.name}
-              className={`flex flex-col transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 ${tier.color}`}
+              className={`flex flex-col h-full transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 ${tier.color}`}
             >
               <CardHeader className="relative">
                 {tier.popular && (
-                  <Badge className="absolute top-4 right-4 bg-yellow-400 text-yellow-900">
+                  <Badge className="absolute top-4 right-4 bg-yellow-400 text-white">
                     Most Popular
                   </Badge>
                 )}
@@ -171,8 +174,8 @@ export default function PriceTable() {
                 <p className="text-5xl font-bold mb-6 text-center">
                   {tier.price ||
                     (isAnnual
-                      ? `$${tier.annualPrice}`
-                      : `$${tier.monthlyPrice}`)}
+                      ? `€${tier.annualPrice}`
+                      : `€${tier.monthlyPrice}`)}
                   <span className="text-sm font-normal block mt-1 text-gray-600 dark:text-gray-400">
                     {tier.price ? "" : isAnnual ? "per year" : "per month"}
                   </span>
@@ -208,11 +211,13 @@ export default function PriceTable() {
                         )}
                         {feature.tooltip && (
                           <Tooltip>
-                            <TooltipTrigger>
-                              <HelpCircle
-                                className="h-4 w-4 text-gray-400 ml-1"
-                                aria-label={`More info about ${feature.name}`}
-                              />
+                            <TooltipTrigger asChild>
+                              <span>
+                                <HelpCircle
+                                  className="h-4 w-4 text-gray-400 ml-1 cursor-pointer"
+                                  aria-label={`More info about ${feature.name}`}
+                                />
+                              </span>
                             </TooltipTrigger>
                             <TooltipContent>
                               <p>{feature.tooltip}</p>
@@ -236,7 +241,7 @@ export default function PriceTable() {
           ))}
         </div>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-          All plans come with a 30-day money-back guarantee. Prices are in USD.
+          All plans come with a 30-day money-back guarantee. Prices are in Euros.
         </p>
       </div>
     </TooltipProvider>
