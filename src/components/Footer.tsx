@@ -4,14 +4,12 @@ const Footer: React.FC = () => {
   return (
     <footer className="border-t border-gray-300 dark:border-gray-700 pt-8 pb-4">
       <div className="flex flex-col items-center space-y-6">
-        {/* Creator Information */}
         <div className="text-center">
           <p className="text-base text-muted-foreground">
             Created by <span className="font-semibold">Yasin Oruc</span>
           </p>
         </div>
 
-        {/* Social Media Links */}
         <div className="flex space-x-6">
           <a
             href="https://github.com/YasinOruc"
@@ -33,7 +31,6 @@ const Footer: React.FC = () => {
           </a>
         </div>
 
-        {/* Copyright */}
         <div className="text-center text-sm text-gray-500 dark:text-gray-400">
           &copy; {new Date().getFullYear()} Yasin Oruc. All rights reserved.
         </div>
