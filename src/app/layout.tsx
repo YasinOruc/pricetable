@@ -2,7 +2,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'Pricing Table',
-  description: 'Your pricing table description',
+  description: 'Yasin Oruc',
 };
 
 export default function RootLayout({
@@ -16,3 +16,4 @@ export default function RootLayout({
     </html>
   );
 }
+

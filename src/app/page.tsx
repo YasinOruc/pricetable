@@ -19,6 +19,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Footer from "@/components/Footer";
 
 type FeatureValue = string | boolean;
 type TierName = "basic" | "pro" | "enterprise";
@@ -142,7 +143,9 @@ export default function PriceTable() {
           time.
         </p>
         <div className="flex justify-center items-center mb-8">
-          <span className="mr-3 text-sm font-medium dark:text-white">Monthly</span>
+          <span className="mr-3 text-sm font-medium dark:text-white">
+            Monthly
+          </span>
           <Switch
             checked={isAnnual}
             onCheckedChange={(checked) => setIsAnnual(checked)}
@@ -157,7 +160,7 @@ export default function PriceTable() {
           {tiers.map((tier) => (
             <Card
               key={tier.name}
-              className={`flex flex-col h-full transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 ${tier.color}`}
+              className={`flex flex-col transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 hover:z-10 ${tier.color}`}
             >
               <CardHeader className="relative">
                 {tier.popular && (
@@ -177,7 +180,7 @@ export default function PriceTable() {
                       ? `€${tier.annualPrice}`
                       : `€${tier.monthlyPrice}`)}
                   <span className="text-sm font-normal block mt-1 text-gray-600 dark:text-gray-400">
-                    {tier.price ? "" : isAnnual ? "per year" : "per month"}
+                    {tier.price ? "\u00A0" : isAnnual ? "per year" : "per month"}
                   </span>
                 </p>
                 <ul className="space-y-3">
@@ -219,7 +222,7 @@ export default function PriceTable() {
                                 />
                               </span>
                             </TooltipTrigger>
-                            <TooltipContent>
+                            <TooltipContent className="z-20">
                               <p>{feature.tooltip}</p>
                             </TooltipContent>
                           </Tooltip>
@@ -244,6 +247,7 @@ export default function PriceTable() {
           All plans come with a 30-day money-back guarantee. Prices are in Euros.
         </p>
       </div>
+      <Footer />
     </TooltipProvider>
   );
 }
